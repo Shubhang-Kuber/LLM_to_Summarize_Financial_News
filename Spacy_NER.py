@@ -11,10 +11,18 @@ nlp = spacy.load("en_core_web_sm")
 # Add EntityRuler BEFORE spaCy's default NER
 ruler = nlp.add_pipe("entity_ruler", before="ner")
 
-# Custom financial + location patterns
+# Custom financial + quarter patterns
 patterns = [
-    {"label": "QUARTER", "pattern": [{"TEXT": {"REGEX": r"Q[1-4]"}}]},
-    {"label": "FIN_METRIC", "pattern": [{"TEXT": "EPS"}]},
+    {"label": "QUARTER", "pattern": "Q1"},
+    {"label": "QUARTER", "pattern": "Q2"},
+    {"label": "QUARTER", "pattern": "Q3"},
+    {"label": "QUARTER", "pattern": "Q4"},
+    {"label": "QUARTER", "pattern": "quarter"},
+    {"label": "QUARTER", "pattern": "first quarter"},
+    {"label": "QUARTER", "pattern": "second quarter"},
+    {"label": "QUARTER", "pattern": "third quarter"},
+    {"label": "QUARTER", "pattern": "fourth quarter"},
+    {"label": "FIN_METRIC", "pattern": "EPS"},
 ]
 ruler.add_patterns(patterns)
 
@@ -43,22 +51,33 @@ def extract_entities(text):
     doc = nlp(text)
     final_entities = []
 
-    # spaCy + custom overrides
     for ent in doc.ents:
         full_label = label_mapping.get(ent.label_, ent.label_)
-        final_entities.append((ent.text, full_label, "spaCy/Custom"))
 
-    # Regex for financial amounts (extra safeguard)
+        # Override: ensure quarters are always Quarter Reference
+        if ent.text.lower() in [
+            "quarter", "first quarter", "second quarter", "third quarter", "fourth quarter"
+        ] or re.fullmatch(r"Q[1-4]", ent.text):
+            final_entities.append((ent.text, "Quarter Reference", "Custom Override"))
+        # EPS override
+        elif ent.text.upper() == "EPS":
+            final_entities.append((ent.text, "Earnings Per Share", "Custom Override"))
+        # "3.12" without $ should be Cardinal Number, not Financial Amount
+        elif re.fullmatch(r"\d+(\.\d+)?", ent.text):
+            final_entities.append((ent.text, "Cardinal Number", "Custom Override"))
+        else:
+            final_entities.append((ent.text, full_label, "spaCy"))
+
+    # Regex: capture ONLY $ amounts as Financial Amounts
     for amt in re.findall(r"\$[0-9]+(?:\.[0-9]+)?(?:\s?(?:billion|million))?", text, flags=re.I):
         if not any(e[0] == amt for e in final_entities):
             final_entities.append((amt, "Financial Amount", "Custom Regex"))
 
-    # Convert to DataFrame
     df = pd.DataFrame(final_entities, columns=["Entity", "Label", "Source"])
     return df
 
 # ---------------------------
-# MASTER TEXT CONTAINER (replace with your own)
+# MASTER TEXT CONTAINER
 # ---------------------------
 text = """Tesla reported record third-quarter deliveries on October 2, 2025,
 with 435,000 vehicles shipped. Analysts expect Q4 revenue to cross $25 billion,
