@@ -12,11 +12,8 @@ def main():
     summarizer = pipeline("summarization", model=model_name, device=device_id())
 
     # 👉 Paste any article / text you want summarized here
-    ARTICLE = """
-    The central bank announced on Monday that interest rates will remain unchanged this quarter 
-    as inflation shows signs of cooling. Market reactions were muted, though analysts said the 
-    long-term growth outlook remains uncertain. Meanwhile, global markets responded cautiously 
-    to the announcement, awaiting further data on unemployment and consumer demand.
+    ARTICLE = """The technology giant reported on Thursday that quarterly earnings exceeded analyst expectations, driven by strong demand for cloud services and AI products. Stock prices rose modestly after the announcement, while investors expressed caution about rising operational costs. Meanwhile, competitors in the sector are expected to release their own earnings reports later this week, which could influence broader market sentiment.
+        
     """
 
     summary = summarizer(
