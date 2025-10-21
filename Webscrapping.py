@@ -23,7 +23,9 @@ import requests as req
 #Step-5
 url = "https://www.businesstoday.in/latest/economy"
 #url = "https://www.moneycontrol.com/news/india/"
-#Put the tag for moneycontrol as h2
+#Put the tag for moneycontrol as "h2"
+#url = "https://www.moneycontrol.com/personal-finance/investing/"
+#Put the tag for moneycontrol as "a"
 
 #From the requests class; we are sending a "Get Request" to the webpage
 #Variable webpage will store the entire info of the webpage
