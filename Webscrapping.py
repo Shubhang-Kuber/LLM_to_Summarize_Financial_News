@@ -22,6 +22,7 @@ import requests as req
 
 #Step-5
 url = "https://www.businesstoday.in/latest/economy"
+#url = "https://www.moneycontrol.com/news/india/"
 
 #From the requests class; we are sending a "Get Request" to the webpage
 #Variable webpage will store the entire info of the webpage
