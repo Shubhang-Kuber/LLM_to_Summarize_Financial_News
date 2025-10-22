@@ -79,9 +79,7 @@ def extract_entities(text):
 # ---------------------------
 # MASTER TEXT CONTAINER
 # ---------------------------
-text = """Tesla reported record third-quarter deliveries on October 2, 2025,
-with 435,000 vehicles shipped. Analysts expect Q4 revenue to cross $25 billion,
-while CEO Elon Musk hinted at expanding production in Berlin. EPS for the quarter was $3.12."""
+text = """  """
 
 # Run extraction
 df = extract_entities(text)
