@@ -22,6 +22,7 @@ import requests as req
 
 #Step-5
 url = "https://www.businesstoday.in/latest/economy"
+#Put the tag as anchor "a"
 #url = "https://www.moneycontrol.com/news/india/"
 #Put the tag for moneycontrol as "h2"
 #url = "https://www.moneycontrol.com/personal-finance/investing/"
