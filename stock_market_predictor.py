@@ -28,7 +28,7 @@ model = AutoModelForSequenceClassification.from_pretrained(model_name)
 #API_Key is used to fetch the articles 
 API_KEY = "a907970697ea4a6585cca194bbb1330c"   
 TICKER = "TCS.NS"                # Stock symbol
-DAYS_BACK = 10                  # Days of news to fetch
+DAYS_BACK = 14                  # Days of news to fetch
 
 
 # Function: Fetch latest stock data like open, close, low, high, volume
