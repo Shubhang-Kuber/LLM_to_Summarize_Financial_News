@@ -93,8 +93,33 @@ An AI-driven project that scrapes financial news, uses NLP models for summarizat
 - CSV-compatible viewer (Excel, LibreOffice, etc.)  
 ## 🔧 Pin Configuration
 
+---
 
+## 🧠 Financial News Summarization Logic
+
+The system follows a multi-stage AI-driven pipeline to summarize and structure financial news:
+
+1. **Web Scraping & Extraction**: Gathers full-text articles from financial news sources using BeautifulSoup and Requests.  
+2. **Text Cleaning & Chunking**: Splits lengthy articles into smaller segments for efficient summarization.  
+3. **AI Summarization**: Uses a transformer-based BART model to generate concise, context-aware summaries.  
+4. **Named Entity Recognition (NER)**: Identifies key financial entities such as companies, sectors, and people using spaCy.  
+5. **Data Structuring & Export**: Compiles summaries and entities into a pandas DataFrame for analysis or Google Sheets upload.  
+6. **Automation Logic**: Automatically processes multiple URLs, pauses between fetches, and saves results to CSV or cloud storage.
 
 ---
 
-**Made with ❤️ for safer environments**
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/Name-of-the-feature`)
+3. Commit your changes (`git commit -m 'GIve me short crisp message about the improvement in the project'`)
+4. Push to the branch (`git push origin feature/Name-of-the-feature`)
+5. Open a Pull Request
+
+
+
+
+
+
+
+
